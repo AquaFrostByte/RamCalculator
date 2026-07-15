@@ -1,13 +1,14 @@
 import sys
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QComboBox,
-    QVBoxLayout, QGridLayout, QGroupBox, QRadioButton
+    QVBoxLayout, QGridLayout, QGroupBox, QRadioButton, QPushButton, QHBoxLayout
 )
 from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 
 
 def fmt(value):
+    value = float(value)
     if value.is_integer():
         return f"{int(value):,}"
     return f"{value:,.4f}".rstrip("0").rstrip(".")
@@ -20,7 +21,7 @@ class StorageConverter(QWidget):
 
     def init_ui(self):
         self.setWindowTitle("Storage Converter")
-        self.setFixedSize(430, 430)
+        self.setFixedSize(430, 530)
 
         layout = QVBoxLayout(self)
         layout.setSpacing(12)
@@ -30,10 +31,24 @@ class StorageConverter(QWidget):
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(title)
 
+        self.dark_mode = True
+
+        input_layout = QHBoxLayout()
+        
         self.value_edit = QLineEdit()
         self.value_edit.setPlaceholderText("Enter a value...")
         self.value_edit.textChanged.connect(self.convert)
-        layout.addWidget(self.value_edit)
+        
+        self.theme_button = QPushButton("☀")
+        self.theme_button.setFixedWidth(40)
+        self.theme_button.clicked.connect(self.toggle_theme)
+        
+        input_layout.addWidget(self.value_edit)
+        input_layout.addWidget(self.theme_button)
+        
+        layout.addLayout(input_layout)
+
+        self.apply_theme()
 
         self.unit_combo = QComboBox()
         self.unit_combo.addItems(["TB", "GB", "MB", "KB", "Bytes"])
@@ -149,6 +164,95 @@ class StorageConverter(QWidget):
             f"{kb:,} KB\n"
             f"{b:,} B"
         )
+    
+    def toggle_theme(self):
+        self.dark_mode = not self.dark_mode
+        self.apply_theme()
+    
+    def apply_theme(self):
+        if self.dark_mode:
+            self.theme_button.setText("☀")
+
+            self.setStyleSheet("""
+                QWidget {
+                    background: #2b2b2b;
+                    color: white;
+                }
+
+                QLineEdit, QComboBox {
+                    background: #3c3c3c;
+                    color: white;
+                    border: 1px solid #666;
+                    padding: 4px;
+                    boarder-radius: 4px;
+                }
+
+                QPushButton {
+                    background: #444;
+                    color: white;
+                    border: 1px solid #666;
+                    padding: 6px;
+                    border-radius: 4px;
+                }
+
+                QPushButton:hover {
+                    background: #555;
+                }
+
+                QGroupBox {
+                    border: 1px solid #666;
+                    border-radius: 6px;
+                    margin-top: 10px;
+                    padding-top: 10px;
+                }
+
+                QGroupBox::title{
+                    subcontrol-origin: margin;
+                    left: 10px;
+                }
+            """)
+
+        else:
+            self.theme_button.setText("🌙")
+
+            self.setStyleSheet("""
+                QWidget {
+                    background: white;
+                    color: black;
+                }
+
+                QLineEdit, QComboBox {
+                    background: white;
+                    color: black;
+                    border: 1px solid #888;
+                    padding: 4px;
+                    border-radius: 4px;
+                }
+
+                QPushButton {
+                    background: #e0e0e0;
+                    color: black;
+                    border: 1px solid #888;
+                    padding: 6px;
+                    border-radius: 4px;
+                }
+
+                QPushButton:hover {
+                    background: #d0d0d0
+                }
+
+                QGroupBox {
+                    border: 1px solid #888;
+                    border-radius: 6px;
+                    margin-top: 10px;
+                    padding-top: 10px;
+                }
+
+                QGroupBox::title {
+                    subcontrol-origin: margin;
+                    left: 10px;
+                }
+            """)
 
 
 if __name__ == "__main__":
