@@ -15,6 +15,8 @@ Input a number and pick a Size(TB,GB,MB,KB,B) and it shows in Hex or decimal.
 
 looks like this:
 
-<screen>
+<img width="450" height="600" alt="image" src="https://github.com/user-attachments/assets/753463f5-a2e9-48aa-8235-add33ba4c44c" />
 
-A bit of futer stuff is that u can set ur max ram and it u can slide sliders to device it to calculate how much each vm can eat up!
+A bit of futer stuff is that u can set ur max ram and it u can slide sliders to device it to calculate how much each vm can eat up! (the futer is now :3c)
+
+<img width="450" height="600" alt="image" src="https://github.com/user-attachments/assets/a6f47da2-8b53-469c-81d9-faedef4c759c" />
