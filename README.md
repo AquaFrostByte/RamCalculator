@@ -11,7 +11,7 @@ The easyest way to do it in ur head is to calculate it like this:
 This is duable in the head but just not efficent.
 So i build a "calculator" that does it for u!
 
-##Install
+## Install
 I highly recommend using the code with python and installing Qt6.
 There is a windows exe but it looks not how it should for somereason and i cant get it to compile with everything for linux for the life of me.
 
